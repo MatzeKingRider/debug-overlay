@@ -1,0 +1,19 @@
+{
+  "name": "@matze/debug-overlay",
+  "version": "1.0.0",
+  "description": "Universal debug overlay — F16 to annotate elements, reports to dashboard",
+  "main": "src/debug-overlay.js",
+  "exports": {
+    ".": "./src/debug-overlay.js",
+    "./react": "./src/react.jsx"
+  },
+  "files": [
+    "src/"
+  ],
+  "keywords": [
+    "debug",
+    "overlay",
+    "annotation"
+  ],
+  "license": "MIT"
+}
