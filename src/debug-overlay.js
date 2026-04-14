@@ -397,6 +397,8 @@
 
     var headers = { "Content-Type": "application/json" };
     if (config.apiKey) headers["X-Debug-Key"] = config.apiKey;
+    if (config.cfAccessClientId) headers["CF-Access-Client-Id"] = config.cfAccessClientId;
+    if (config.cfAccessClientSecret) headers["CF-Access-Client-Secret"] = config.cfAccessClientSecret;
 
     var payload = JSON.stringify({ notes: notes, project: config.project });
 
@@ -466,6 +468,8 @@
     config.project = opts.project || "";
     config.endpoint = opts.endpoint || "";
     config.apiKey = opts.apiKey || "";
+    config.cfAccessClientId = opts.cfAccessClientId || "";
+    config.cfAccessClientSecret = opts.cfAccessClientSecret || "";
 
     // register global shortcut
     document.addEventListener("keydown", onKeyDown, true);
@@ -474,7 +478,11 @@
     if (config.endpoint && config.project) {
       var configUrl = config.endpoint.replace("/debug/notes", "/debug/config/" + config.project);
       fetch(configUrl, {
-        headers: config.apiKey ? { "X-Debug-Key": config.apiKey } : {},
+        headers: Object.assign(
+          {},
+          config.apiKey ? { "X-Debug-Key": config.apiKey } : {},
+          config.cfAccessClientId ? { "CF-Access-Client-Id": config.cfAccessClientId, "CF-Access-Client-Secret": config.cfAccessClientSecret } : {}
+        ),
       })
         .then(function (res) {
           return res.json();
