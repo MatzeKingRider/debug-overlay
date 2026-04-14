@@ -333,7 +333,7 @@
       return;
     }
     // Ctrl+Shift+D / Cmd+Shift+D fallback
-    if (e.key === "D" && e.shiftKey && (e.ctrlKey || e.metaKey)) {
+    if ((e.key === "D" || e.key === "d") && e.shiftKey && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       toggle();
       return;
