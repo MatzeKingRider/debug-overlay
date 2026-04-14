@@ -389,20 +389,20 @@
       return;
     }
 
-    if (!config.endpoint || !config.apiKey) {
+    if (!config.endpoint) {
       downloadMarkdown();
       deactivate();
       return;
     }
 
-    var payload = JSON.stringify({ notes: notes });
+    var headers = { "Content-Type": "application/json" };
+    if (config.apiKey) headers["X-Debug-Key"] = config.apiKey;
+
+    var payload = JSON.stringify({ notes: notes, project: config.project });
 
     fetch(config.endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Debug-Key": config.apiKey,
-      },
+      headers: headers,
       body: payload,
     })
       .then(function (res) {
